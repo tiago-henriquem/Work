@@ -5,7 +5,7 @@
 
 	typedef struct{
 		int codigo;
-		char nome;
+		char nome[30];
 		int qtd;
 		int qtdMin;
 		float precoCompra;
@@ -15,24 +15,17 @@
 
 void Menu();
 void MenuProdutos();
-char ExcluirProduto();
 cadastro MenuCadastro();
+char ExcluirProduto();
+
 
 main(){
-	
+
 	setlocale(LC_ALL, "Portuguese");
-	int* i=0;
-	int* x=1;
 	Menu();
 	return 0;
 
 }
-
-
-
-
-
-
 
 
 
@@ -66,7 +59,7 @@ main(){
 		if(resp1==1){
 			MenuProdutos();
 		}else if(resp1==2){
-		
+
 		}else if(resp1==3){
 			ExcluirProduto();
 		}else if(resp1==4){
@@ -78,7 +71,7 @@ main(){
 			Menu();
 		}
 	}
-	
+
 
 	void MenuProdutos(){
 		int resp2;
@@ -99,48 +92,53 @@ main(){
 			MenuProdutos();
 		}
 	}
-	
+
 	//Tu pode tentar fazer uma função sem parâmetro de entrada que retorna um único cadastro de produto e depois adiciona na posição certinha.
 
-	cadastro MenuCadastro(int* i, int* x){
-		if(x<=2){
-		cadastro cadastroProd[2];
+	cadastro MenuCadastro(){
+	    static int i=0;
+	    cadastro cadastroProd[2];
+	    if(i<2){
 		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 		printf("Código: \n");
-		scanf("%d", &cadastroProd[*i].codigo);
+		scanf("%d", &cadastroProd[i].codigo);
 		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 		printf("Nome do produto:\n");
-		scanf("%s", &cadastroProd[*i].nome);
+		scanf("%s", &cadastroProd[i].nome[30]);
 		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 		printf("Quantidade em estoque:\n");
-		scanf("%d", &cadastroProd[*i].qtd);
+		scanf("%d", &cadastroProd[i].qtd);
 		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 		printf("Quantidade mínima: ");
-		scanf("%d", &cadastroProd[*i].qtdMin);
+		scanf("%d", &cadastroProd[i].qtdMin);
 		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 		printf("Preço de compra: ");
-		scanf("%d", &cadastroProd[*i].precoCompra);
+		scanf("%d", &cadastroProd[i].precoCompra);
 		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 		printf("Preço de venda: ");
-		scanf("%d", &cadastroProd[*i].precoVenda);
+		scanf("%d", &cadastroProd[i].precoVenda);
 		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 		printf("Situação: ");
-		scanf("%s", &cadastroProd[*i].situacao);
+		scanf("%s", &cadastroProd[i].situacao);
 		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 		printf("\n");
-		}
-		x++;
+		printf("Valor de i: %d\n", i);
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 		i++;
 		MenuProdutos();
-		return (cadastroProd[2]);
+	    }else{
+            printf("O número máximo de produtos já foi atingido.");
+            Menu();
+	    }
+	    return cadastroProd[2];
 	}
-	
+
 	char ExcluirProduto(){
-		cadastro cadastroProd[2];
-		int code, i;
+	    static int i=0;
+		cadastro cadastroProd[i];
+		int code;
 		printf("Informe o código do produto que deseja excluir: ");
 		scanf("%d", &code);
-		i=0;
 		while(i<2){
 			if(cadastroProd[i].codigo==code){
 				cadastroProd[i].situacao = 'I';
