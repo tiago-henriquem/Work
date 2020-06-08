@@ -1,0 +1,152 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<locale.h>
+
+	typedef struct{
+		int codigo;
+		char nome;
+		int qtd;
+		int qtdMin;
+		float precoCompra;
+		float precoVenda;
+		char situacao;
+	}cadastro;
+
+void Menu();
+void MenuProdutos();
+char ExcluirProduto();
+cadastro MenuCadastro();
+
+main(){
+	
+	setlocale(LC_ALL, "Portuguese");
+	int* i=0;
+	int* x=1;
+	Menu();
+	return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	void Menu(){
+		int resp1;
+		printf("............................................................................\n");
+		printf("1 - Produtos\n");
+		printf("2 - Registrar vendas\n");
+		printf("3 - Relatórios\n");
+		printf("4 - Sair\n");
+		printf("............................................................................\n");
+		scanf("%d", &resp1);
+		if(resp1==1){
+			MenuProdutos();
+		}else if(resp1==2){
+		
+		}else if(resp1==3){
+			ExcluirProduto();
+		}else if(resp1==4){
+			system("cls");
+		}else{
+			printf("Resposta inválida.");
+			system("pause");
+			system("cls");
+			Menu();
+		}
+	}
+	
+
+	void MenuProdutos(){
+		int resp2;
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		printf("1 - Cadastrar produto\n");
+		printf("2 - Atualizar produto\n");
+		printf("3 - Excluir produto\n");
+		printf("4 - Pesquisar nome do produto\n");
+		printf("0 - VOLTAR\n");
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		scanf("%d", &resp2);
+		if(resp2==1){
+			MenuCadastro();
+		}else if(resp2==0){
+			Menu();
+		}else{
+			printf("Resposta inválida.");
+			MenuProdutos();
+		}
+	}
+	
+	//Tu pode tentar fazer uma função sem parâmetro de entrada que retorna um único cadastro de produto e depois adiciona na posição certinha.
+
+	cadastro MenuCadastro(int* i, int* x){
+		if(x<=2){
+		cadastro cadastroProd[2];
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		printf("Código: \n");
+		scanf("%d", &cadastroProd[*i].codigo);
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		printf("Nome do produto:\n");
+		scanf("%s", &cadastroProd[*i].nome);
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		printf("Quantidade em estoque:\n");
+		scanf("%d", &cadastroProd[*i].qtd);
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		printf("Quantidade mínima: ");
+		scanf("%d", &cadastroProd[*i].qtdMin);
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		printf("Preço de compra: ");
+		scanf("%d", &cadastroProd[*i].precoCompra);
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		printf("Preço de venda: ");
+		scanf("%d", &cadastroProd[*i].precoVenda);
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		printf("Situação: ");
+		scanf("%s", &cadastroProd[*i].situacao);
+		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+		printf("\n");
+		}
+		x++;
+		i++;
+		MenuProdutos();
+		return (cadastroProd[2]);
+	}
+	
+	char ExcluirProduto(){
+		cadastro cadastroProd[2];
+		int code, i;
+		printf("Informe o código do produto que deseja excluir: ");
+		scanf("%d", &code);
+		i=0;
+		while(i<2){
+			if(cadastroProd[i].codigo==code){
+				cadastroProd[i].situacao = 'I';
+			}
+			i++;
+		}
+		return cadastroProd[i].situacao;
+		Menu();
+	}
