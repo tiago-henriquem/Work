@@ -11,20 +11,26 @@
 		float precoCompra;
 		float precoVenda;
 		char situacao;
-	}cadastro;
+		int cont;
+	}regprod;
+	regprod Produto[2];
+	
+void menu(int contador[]);
+void menuprodutos(int contador[]);
+void menuregistro(regprod Produto[], int contador[]);
+void atualizarproduto(int contador[]);
+/*
+regprod Produto: vetor de struct.
+regprod Produto[]: *uma variável* do vetor de struct.
 
-void Menu();
-void MenuProdutos();
-cadastro MenuCadastro();
-char ExcluirProduto();
+criar vetor na main.
 
+*/
 
 main(){
-
 	setlocale(LC_ALL, "Portuguese");
-	Menu();
-	return 0;
-
+	int contador[1];
+	menu(contador);	
 }
 
 
@@ -34,117 +40,122 @@ main(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	void Menu(){
-		int resp1;
-		printf("............................................................................\n");
-		printf("1 - Produtos\n");
-		printf("2 - Registrar vendas\n");
-		printf("3 - Relatórios\n");
-		printf("4 - Sair\n");
-		printf("............................................................................\n");
-		scanf("%d", &resp1);
-		if(resp1==1){
-			MenuProdutos();
-		}else if(resp1==2){
-
-		}else if(resp1==3){
-			ExcluirProduto();
-		}else if(resp1==4){
-			system("cls");
-		}else{
-			printf("Resposta inválida.");
-			system("pause");
-			system("cls");
-			Menu();
-		}
+void menu(int contador[]){
+	int resp;
+	printf("............................................................................\n");
+	printf("1 - Cadastrar produto\n");
+	printf("2 - Registrar vendas\n");
+	printf("3 - Relatórios\n");
+	printf("4 - Sair\n");
+	printf("............................................................................\n");
+	scanf("%d", &resp);
+	if(resp==1){
+		menuprodutos(contador);
+	}else{
+		system("pause");
+		system("cls");
 	}
+}
 
-
-	void MenuProdutos(){
-		int resp2;
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		printf("1 - Cadastrar produto\n");
-		printf("2 - Atualizar produto\n");
-		printf("3 - Excluir produto\n");
-		printf("4 - Pesquisar nome do produto\n");
-		printf("0 - VOLTAR\n");
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		scanf("%d", &resp2);
-		if(resp2==1){
-			MenuCadastro();
-		}else if(resp2==0){
-			Menu();
-		}else{
-			printf("Resposta inválida.");
-			MenuProdutos();
-		}
+void menuprodutos(int contador[]){
+	int resposta;
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	printf("1 - Cadastrar produto\n");
+	printf("2 - Atualizar produto\n");
+	printf("3 - Excluir produto\n");
+	printf("4 - Pesquisar nome do produto\n");
+	printf("0 - VOLTAR\n");
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	scanf("%d", &resposta);
+	if(resposta==1){
+		menuregistro(Produto, contador);
+	}else if(resposta==2){
+		atualizarproduto(contador);
+	}else{
+		printf("\nBuilding...\n");
+		menu(contador);
 	}
+	
+}
 
-	//Tu pode tentar fazer uma função sem parâmetro de entrada que retorna um único cadastro de produto e depois adiciona na posição certinha.
 
-	cadastro MenuCadastro(){
-	    static int i=0;
-	    cadastro cadastroProd[2];
-	    if(i<2){
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		printf("Código: \n");
-		scanf("%d", &cadastroProd[i].codigo);
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		printf("Nome do produto:\n");
-		scanf("%s", &cadastroProd[i].nome[30]);
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		printf("Quantidade em estoque:\n");
-		scanf("%d", &cadastroProd[i].qtd);
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		printf("Quantidade mínima: ");
-		scanf("%d", &cadastroProd[i].qtdMin);
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		printf("Preço de compra: ");
-		scanf("%d", &cadastroProd[i].precoCompra);
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		printf("Preço de venda: ");
-		scanf("%d", &cadastroProd[i].precoVenda);
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		printf("Situação: ");
-		scanf("%s", &cadastroProd[i].situacao);
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		printf("\n");
-		printf("Valor de i: %d\n", i);
-		printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-		i++;
-		MenuProdutos();
-	    }else{
-            printf("O número máximo de produtos já foi atingido.");
-            Menu();
-	    }
-	    return cadastroProd[2];
-	}
+void menuregistro(regprod Produto[], int contador[]){
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	printf("Código: \n");
+	scanf("%d", &Produto[contador[1]].codigo);
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	printf("Nome do produto:\n");
+	scanf("%s", &Produto[contador[1]].nome[30]);
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	printf("Quantidade em estoque:\n");
+	scanf("%d", &Produto[contador[1]].qtd);
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	printf("Quantidade mínima: ");
+	scanf("%d", &Produto[contador[1]].qtdMin);
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	printf("Preço de compra: ");
+	scanf("%d", &Produto[contador[1]].precoCompra);
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	printf("Preço de venda: ");
+	scanf("%d", &Produto[contador[1]].precoVenda);
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	printf("Situação: ");
+	scanf("%s", &Produto[contador[1]].situacao);
+	printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+	printf("\nProduto registrado com sucesso!\n");
+	system("pause");
+	system("cls");
+	printf("Contador: %d\n", contador[1]);
+	++contador[1];
+	printf("Contador pós incremento: %d\n", contador[1]);
+	menu(contador);
+}
 
-	char ExcluirProduto(){
-	    static int i=0;
-		cadastro cadastroProd[i];
-		int code;
-		printf("Informe o código do produto que deseja excluir: ");
-		scanf("%d", &code);
-		while(i<2){
-			if(cadastroProd[i].codigo==code){
-				cadastroProd[i].situacao = 'I';
+
+void atualizarproduto(int contador[]){
+	int code, i=0, resp, error=0;
+	printf("Informe o código do produto a ser atualizado: ");
+	scanf("%d", &code);
+	while(i<2){
+		if(code==Produto[i].codigo){
+			printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+			printf("1 - Nome\n");
+			printf("2 - Quantidade\n");
+			printf("3 - Quantidade mínima\n");
+			printf("4 - Preço de compra\n");
+			printf("5 - Preço de venda\n");
+			printf("6 - Situação\n");
+			printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+			printf("Informe o que deseja alterar: ");
+			scanf("%d", &resp);
+			if(resp==1){
+				printf("\nInforme o novo nome: ");
+				scanf("%d", &Produto[i].nome[30]);
+			}else if(resp==2){
+				printf("Informe a nova quantidade: ");
+				scanf("%d", &Produto[i].qtd);
+			}else if(resp==3){
+				printf("Informe a nova quantidade mínima: ");
+				scanf("%d", &Produto[i].qtdMin);
+			}else if(resp==4){
+				printf("Informe o novo preço de compra: ");
+				scanf("%d", &Produto[i].precoCompra);
+			}else if(resp==5){
+				printf("Informe o novo preço de venda: ");
+				scanf("%d", &Produto[i].precoVenda);
+			}else if(resp==6){
+				printf("Informe a nova situação: ");
+				scanf("%d", &Produto[i].precoVenda);
+			}else{
+				printf("Opção inválida.");
+				system("pause");
+				system("cls");
+				menu(contador);
 			}
-			i++;
 		}
-		return cadastroProd[i].situacao;
-		Menu();
+		i++;
 	}
+	system("pause");
+	system("cls");
+	menu(contador);	
+}
